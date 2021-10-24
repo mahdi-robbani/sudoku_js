@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Tile from './Tile';
 import './Board.css';
+import {backtrack} from '../algorithms/backtrack';
 
 export default class Board extends Component {
     constructor(props){
@@ -8,7 +9,7 @@ export default class Board extends Component {
         this.numRows = 9;
         this.numCols = 9;
         this.state = {
-            values: [[null, null, null, 2, 6, null, 7, null, 1],
+            grid: [[null, null, null, 2, 6, null, 7, null, 1],
                      [6, 8, null, null, 7, null, null, 9, null],
                      [1, 9, null, null, null, 4, 5, null, null],
                      [8, 2, null, 1, null, null, null, 4, null],
@@ -27,9 +28,15 @@ export default class Board extends Component {
         console.log(i, j)
     }
 
+    visualizeBacktrack(){
+        let newGrid = this.state.grid.slice()
+        backtrack(newGrid)
+        this.setState({grid: newGrid})
+    }
+
     renderTile(i, j){
         return <Tile 
-                    value={this.state.values[i][j]}
+                    value={this.state.grid[i][j]}
                     onClick={() => this.handleClick(i, j)}
                 />;
     }
@@ -54,6 +61,7 @@ export default class Board extends Component {
 
         return (
             <div>
+                <button onClick={() => this.visualizeBacktrack()}>Solve Board</button>
                 {rows}
             </div>
 
