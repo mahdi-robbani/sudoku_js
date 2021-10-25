@@ -10,12 +10,14 @@ export default class Tile extends Component{
         const borderCol = isBorderCol ? 'border-col': ''
 
         return (
-            <button className={`tile ${borderRow} ${borderCol} ${initial}`}
+            <input className={`tile ${borderRow} ${borderCol} ${initial}`}
                     id={`${row},${col}`}
                     onClick={() => this.props.onClick()}
+                    value={value}
+                    maxLength="1"
+                    onKeyUp={() => this.props.onKeyUp()}
                 >
-                {value}
-                </button>
+                </input>
         );
     }
 }

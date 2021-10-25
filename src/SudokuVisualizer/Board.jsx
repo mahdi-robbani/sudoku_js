@@ -55,6 +55,10 @@ export default class Board extends Component {
         console.log(i, j)
     }
 
+    handleKeyUp(){
+        console.log("keyup")
+    }
+
     getBacktrackArray(grid){
         let newGrid = [];
         for (const row of grid){
@@ -108,6 +112,7 @@ export default class Board extends Component {
                     isBorderCol={isBorderCol}
                     isInitial={isInitial}
                     onClick={() => this.handleClick(row, col)}
+                    onKeyUp={() => this.handleKeyUp()}
                 />;
     }
 
