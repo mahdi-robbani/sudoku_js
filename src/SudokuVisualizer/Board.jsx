@@ -31,9 +31,10 @@ export default class Board extends Component {
                 const value = INITIAL_BOARD[i][j] ? INITIAL_BOARD[i][j] : null;
                 const row = i;
                 const col = j;
-                const isBorder = row % 3 === 2 ? true: false;
+                const isBorderRow = row === 2 || row === 5 ? true : false;
+                const isBorderCol = col === 2 || col === 5 ? true: false;
                 const isInitial = value ? true: false;
-                const tile = {row, col, value, isBorder, isInitial};
+                const tile = {row, col, value, isBorderRow, isBorderCol, isInitial};
                 currentRow.push(tile);
             }
             grid.push(currentRow);
@@ -82,17 +83,18 @@ export default class Board extends Component {
                 gridDisplay[i][j].value = element[key]
                 console.log(`Key: ${key} Value: ${element[key]}`)
                 this.setState({grid: gridDisplay})
-            }, 100 * idx)
+            }, 10 * idx)
         }
     }
 
     renderTile(tile){
-        const {row, col, value, isBorder, isInitial} = tile;
+        const {row, col, value, isBorderRow, isBorderCol, isInitial} = tile;
         return <Tile
                     key={`${row},${col}`}
                     col={col}
                     value={value}
-                    isBorder={isBorder}
+                    isBorderRow={isBorderRow}
+                    isBorderCol={isBorderCol}
                     isInitial={isInitial}
                     onClick={() => this.handleClick(row, col)}
                 />;

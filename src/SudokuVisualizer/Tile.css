@@ -11,4 +11,18 @@
     padding: 0;
     text-align: center;
     width: 60px;
+    color: green;
   }
+
+.border-row {
+  border-bottom: 5px solid #000;
+}
+
+.border-col {
+  border-right: 5px solid #000;
+}
+
+.initial {
+  color: black;
+}
+
