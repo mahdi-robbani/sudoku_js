@@ -12,15 +12,6 @@ const INITIAL_BOARD = [[0, 0, 0, 2, 6, 0, 7, 0, 1],
                         [0, 0, 9, 3, 0, 0, 0, 7, 4],
                         [0, 4, 0, 0, 5, 0, 0, 3, 6],
                         [7, 0, 3, 0, 1, 8, 0, 0, 0]]
-// [null, null, null, 2, 6, null, 7, null, 1],
-// [6, 8, null, null, 7, null, null, 9, null],
-// [1, 9, null, null, null, 4, 5, null, null],
-// [8, 2, null, 1, null, null, null, 4, null],
-// [null, null, 4, 6, null, 2, 9, null, null],
-// [null, 5, null, null, null, 3, null, 2, 8],
-// [null, null, 9, 3, null, null, null, 7, 4],
-// [null, 4, null, null, 5, null, null, 3, 6],
-// [7, null, 3, null, 1, 8, null, null, null]
 
 export default class Board extends Component {
     constructor(props){
@@ -67,9 +58,9 @@ export default class Board extends Component {
         let newGrid = [];
         for (const row of grid){
             let currentRow = [];
-            for (const value of row){
-                const tile = value === null ? 0 : value
-                currentRow.push(tile)
+            for (const tile of row){
+                const value = tile.value === null ? 0 : tile.value
+                currentRow.push(value)
             }
             newGrid.push(currentRow)
         }
@@ -79,11 +70,8 @@ export default class Board extends Component {
     visualizeBacktrack(){
         let gridDisplay = this.state.grid.slice()
         let gridBacktrack = this.getBacktrackArray(gridDisplay)
-        console.log("DISPLAy")
-        console.log(gridDisplay)
-        console.log("BT")
-        console.log(gridBacktrack)
         let history = [];
+        
         backtrack(gridBacktrack, history)
 
         for (let idx = 0; idx < history.length; idx ++){
@@ -91,9 +79,8 @@ export default class Board extends Component {
                 const element = history[idx]
                 const key = Object.keys(element)[0]
                 const [i, j] = key.split(',')
-                gridDisplay[i][j] = element[key]
-                console.log(key)
-                console.log(element[key])
+                gridDisplay[i][j].value = element[key]
+                console.log(`Key: ${key} Value: ${element[key]}`)
                 this.setState({grid: gridDisplay})
             }, 100 * idx)
         }

@@ -75,7 +75,7 @@ export function backtrack(board, history){
             // add to history
             let event = {};
             num = num === 0 ? null : num // repalce 0 with null when storing
-            event[`${row},${col}`] = num
+            event[pos] = num
             history.push(event);
             //check if solution is valid
             if (checkValid(num, row, col, board)){
