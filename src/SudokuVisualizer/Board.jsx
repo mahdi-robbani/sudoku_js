@@ -28,10 +28,40 @@ export default class Board extends Component {
         console.log(i, j)
     }
 
+    getBacktrackArray(grid){
+        let newGrid = [];
+        for (const row of grid){
+            let currentRow = [];
+            for (const value of row){
+                const tile = value === null ? 0 : value
+                currentRow.push(tile)
+            }
+            newGrid.push(currentRow)
+        }
+        return newGrid
+    }
+
     visualizeBacktrack(){
-        let newGrid = this.state.grid.slice()
-        backtrack(newGrid)
-        this.setState({grid: newGrid})
+        let gridDisplay = this.state.grid.slice()
+        let gridBacktrack = this.getBacktrackArray(gridDisplay)
+        console.log("DISPLAy")
+        console.log(gridDisplay)
+        console.log("BT")
+        console.log(gridBacktrack)
+        let history = [];
+        backtrack(gridBacktrack, history)
+
+        for (let idx = 0; idx < history.length; idx ++){
+            setTimeout(() => {
+                const element = history[idx]
+                const key = Object.keys(element)[0]
+                const [i, j] = key.split(',')
+                gridDisplay[i][j] = element[key]
+                console.log(key)
+                console.log(element[key])
+                this.setState({grid: gridDisplay})
+            }, 100 * idx)
+        }
     }
 
     renderTile(i, j){
@@ -57,7 +87,7 @@ export default class Board extends Component {
                 {cols}
             </div>)
         }
-        console.log(rows)
+        //console.log(rows)
 
         return (
             <div>

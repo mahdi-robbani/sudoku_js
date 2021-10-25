@@ -54,7 +54,7 @@ function findEmpty(board){
     const numCols = board[0].length;
     for (let row = 0; row < numRows; row++){
         for (let col = 0; col < numCols; col++){
-            if (board[row][col] === null){
+            if (board[row][col] === 0){
                 return [row, col]
             }
         }
@@ -62,22 +62,26 @@ function findEmpty(board){
     return []
 }
 
-export function backtrack(board){
+export function backtrack(board, history){
     //Recursively solve a board using the backtracking algorithm.
-    
     const result = findEmpty(board);
     if (result.length === 0){
         //base case (solved board)
         return true
     } else {
-        const [row, col] = result
-        for (let num = 0; num < 10; num++){
+        const [row, col] = result;
+        const pos = `${row},${col}`;
+        for (let num = 1; num < 10; num++){
+            // add to history
+            let event = {};
+            num = num === 0 ? null : num // repalce 0 with null when storing
+            event[`${row},${col}`] = num
+            history.push(event);
             //check if solution is valid
             if (checkValid(num, row, col, board)){
                 board[row][col] = num
-
                 //run backtrack on next square and return true if it solves
-                if (backtrack(board)){
+                if (backtrack(board, history)){
                     return true
                 }
 
@@ -88,3 +92,4 @@ export function backtrack(board){
     }
     return false
 }
+
