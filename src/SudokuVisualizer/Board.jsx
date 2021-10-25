@@ -87,6 +87,17 @@ export default class Board extends Component {
         }
     }
 
+    resetBoard(){
+        let newGrid = this.state.grid.slice()
+        newGrid.forEach((row, rowIdx) =>{
+            row.forEach((data, colIdx) => {
+                const val = INITIAL_BOARD[rowIdx][colIdx]
+                data.value =  val ? val : null
+            })
+        })
+        this.setState({grid: newGrid})
+    }
+
     renderTile(tile){
         const {row, col, value, isBorderRow, isBorderCol, isInitial} = tile;
         return <Tile
@@ -120,6 +131,7 @@ export default class Board extends Component {
         return (
             <div>
                 <button onClick={() => this.visualizeBacktrack()}>Solve Board</button>
+                <button onClick={() => this.resetBoard()}>Reset Board</button>
                 <div className="grid">
                     {board}
                 </div>
