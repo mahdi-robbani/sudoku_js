@@ -64,7 +64,6 @@ export default class Board extends Component {
             this.setState({grid : newGrid})
         } else {
             //reset value and warn user
-            document.getElementById(`${row},${col}`).value = null
             this.setState({inputStatus: 'Invalid Move'})
         }
         console.log(this.state.grid)
@@ -107,11 +106,16 @@ export default class Board extends Component {
         let newGrid = this.state.grid.slice()
         newGrid.forEach((row, rowIdx) =>{
             row.forEach((data, colIdx) => {
-                const val = INITIAL_BOARD[rowIdx][colIdx]
-                data.value =  val ? val : null
+                const initialValue = INITIAL_BOARD[rowIdx][colIdx]
+                data.value =  initialValue ? initialValue : null
+                // remove any changed inputs
+                // if (!initialValue){
+                //     document.getElementById(`${rowIdx},${colIdx}`).value = null
+                // }
             })
         })
         this.setState({grid: newGrid})
+        console.log(this.state.grid)
     }
 
     renderTile(tile){
@@ -151,8 +155,8 @@ export default class Board extends Component {
                 <div className="grid">
                     {board}
                 </div>
-                <div class="inputStatus">{this.state.inputStatus}</div>
-                <div ckass="gameStatus">{this.state.gameStatus}</div>
+                <div className="inputStatus">{this.state.inputStatus}</div>
+                <div className="gameStatus">{this.state.gameStatus}</div>
             </div>
 
         );
