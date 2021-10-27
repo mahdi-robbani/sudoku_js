@@ -1,6 +1,6 @@
 .tile {
-    background: #fff;
-    border: 1px solid #999;
+    background: #282c34;
+    border: 1px solid #61dafb;
     float: left;
     font-size: 24px;
     font-weight: bold;
@@ -15,14 +15,17 @@
   }
 
 .border-row {
-  border-bottom: 5px solid #000;
+  border-bottom: 5px solid #61dafb;
 }
 
 .border-col {
-  border-right: 5px solid #000;
+  border-right: 5px solid #61dafb;
 }
 
 .initial {
-  color: black;
+  color: #fff;
 }
 
+.tile:focus {
+  outline: none;
+}

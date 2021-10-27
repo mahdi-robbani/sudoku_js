@@ -26,6 +26,7 @@ export default class Board extends Component {
     }
 
     getInitialGrid(){
+        // get data for each grid element from the initial grid
         let grid = [];
         for (let i = 0; i < this.numRows; i++){
             let currentRow = [];
@@ -49,11 +50,13 @@ export default class Board extends Component {
     }
 
     handleClick() {
-        console.log("click")
+        // reset Invalid input message 
         this.setState({inputStatus: ''})
     }
 
     handleChange(row, col){
+        // on each text input, check if the input is valid and if so
+        // adjust the state
         const newGrid = this.state.grid.slice()
         let valueArray = this.getValueArray(newGrid)
         let newValue = parseInt(document.getElementById(`${row},${col}`).value)
@@ -84,6 +87,8 @@ export default class Board extends Component {
     }
 
     visualizeBacktrack(){
+        // create a copy of the array with all the values and use the
+        // backtracking algorithm to solve it
         let gridDisplay = this.state.grid.slice()
         let gridBacktrack = this.getValueArray(gridDisplay)
         let history = [];
@@ -91,6 +96,7 @@ export default class Board extends Component {
         backtrack(gridBacktrack, history)
 
         for (let idx = 0; idx < history.length; idx ++){
+            //set timeout adjust delay between each state change
             setTimeout(() => {
                 const element = history[idx]
                 const key = Object.keys(element)[0]
@@ -103,15 +109,12 @@ export default class Board extends Component {
     }
 
     resetBoard(){
+        // use initial board state to reset
         let newGrid = this.state.grid.slice()
         newGrid.forEach((row, rowIdx) =>{
             row.forEach((data, colIdx) => {
                 const initialValue = INITIAL_BOARD[rowIdx][colIdx]
                 data.value =  initialValue ? initialValue : null
-                // remove any changed inputs
-                // if (!initialValue){
-                //     document.getElementById(`${rowIdx},${colIdx}`).value = null
-                // }
             })
         })
         this.setState({grid: newGrid})
@@ -119,6 +122,7 @@ export default class Board extends Component {
     }
 
     renderTile(tile){
+        // send data to tile object
         const {row, col, value, isInitial} = tile;
         return <Tile
                     key={`${row},${col}`}
@@ -150,13 +154,19 @@ export default class Board extends Component {
 
         return (
             <div>
-                <button onClick={() => this.visualizeBacktrack()}>Solve Board</button>
-                <button onClick={() => this.resetBoard()}>Reset Board</button>
                 <div className="grid">
                     {board}
                 </div>
-                <div className="inputStatus">{this.state.inputStatus}</div>
-                <div className="gameStatus">{this.state.gameStatus}</div>
+                <div className="panel">
+                    <div className="game-controls">
+                        <button className="btn" onClick={() => this.visualizeBacktrack()}>Solve Board</button>
+                        <button className="btn" onClick={() => this.resetBoard()}>Reset Board</button>
+                    </div>
+                    <div className="game-info">
+                        <div className="input-status">{this.state.inputStatus}</div>
+                        <div className="game-status">{this.state.gameStatus}</div>
+                    </div>
+                </div>
             </div>
 
         );

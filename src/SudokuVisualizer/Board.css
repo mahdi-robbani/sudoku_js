@@ -1,13 +1,47 @@
-.board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
+  .board-row:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
 
-  .inputStatus {
+  .input-status {
     color: red;
   }
-  
-  .gameStaus {
+
+  .game-status {
     color: green;
+  }
+
+  .btn {
+    color: #282c34;
+    background-color: #61dafb;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    border-radius: 5px;
+    border-color: #000;
+    font-size: large;
+  }
+
+  .btn.toggle {
+    font-weight: bolder;
+    margin-top: 10px;
+  }
+
+  .btn.bold {
+    font-weight: bolder;
+  }
+
+  .panel {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .grid {
+    float: left;
+  }
+
+  .input-status{
+    margin-top: 2px;
+    margin-left: 5px;
   }

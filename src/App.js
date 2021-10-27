@@ -7,11 +7,6 @@ function App() {
       <div className="game-board">
       <Board></Board>
       </div>
-      <div className="game-info">
-        <div>{/*status */}</div>
-        <div>{/*TO DO*/}</div>
-      </div>
-      
     </div>
   );
 }
