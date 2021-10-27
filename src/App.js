@@ -20,3 +20,5 @@ function App() {
 // Tile = square
 
 export default App;
+
+//npm start

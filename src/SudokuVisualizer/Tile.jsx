@@ -8,14 +8,16 @@ export default class Tile extends Component{
         const initial = isInitial ? 'initial': ''
         const borderRow = isBorderRow ? 'border-row': ''
         const borderCol = isBorderCol ? 'border-col': ''
+        //const string = value ? value : ''
 
         return (
             <input className={`tile ${borderRow} ${borderCol} ${initial}`}
+                type="text"
                     id={`${row},${col}`}
+                    name={`${row},${col}`}
                     onClick={() => this.props.onClick()}
-                    value={value}
+                    defaultValue={value}
                     maxLength="1"
-                    onKeyUp={() => this.props.onKeyUp()}
                 >
                 </input>
         );

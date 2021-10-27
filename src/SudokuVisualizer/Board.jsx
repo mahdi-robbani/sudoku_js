@@ -21,6 +21,8 @@ export default class Board extends Component {
         this.state = {
             grid: [],
         }
+        //this.handleChange = this.handleChange.bind(this);
+        //this.handleClick = this.handleClick.bind(this);
     }
 
     getInitialGrid(){
@@ -48,15 +50,8 @@ export default class Board extends Component {
         this.setState({grid})
     }
 
-    handleClick(i, j) {
-        // const squares = this.state.squares.slice();
-        // squares[i] = 'X';
-        // this.setState(squares);
-        console.log(i, j)
-    }
-
-    handleKeyUp(){
-        console.log("keyup")
+    handleClick() {
+        console.log("click")
     }
 
     getBacktrackArray(grid){
@@ -106,13 +101,13 @@ export default class Board extends Component {
         const {row, col, value, isBorderRow, isBorderCol, isInitial} = tile;
         return <Tile
                     key={`${row},${col}`}
+                    row={row}
                     col={col}
                     value={value}
                     isBorderRow={isBorderRow}
                     isBorderCol={isBorderCol}
                     isInitial={isInitial}
-                    onClick={() => this.handleClick(row, col)}
-                    onKeyUp={() => this.handleKeyUp()}
+                    onClick={() => this.handleClick()}
                 />;
     }
 
