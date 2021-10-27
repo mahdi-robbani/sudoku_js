@@ -21,8 +21,6 @@ export default class Board extends Component {
         this.state = {
             grid: [],
         }
-        //this.handleChange = this.handleChange.bind(this);
-        //this.handleClick = this.handleClick.bind(this);
     }
 
     getInitialGrid(){
@@ -33,10 +31,8 @@ export default class Board extends Component {
                 const value = INITIAL_BOARD[i][j] ? INITIAL_BOARD[i][j] : null;
                 const row = i;
                 const col = j;
-                const isBorderRow = row === 2 || row === 5 ? true : false;
-                const isBorderCol = col === 2 || col === 5 ? true: false;
                 const isInitial = value ? true: false;
-                const tile = {row, col, value, isBorderRow, isBorderCol, isInitial};
+                const tile = {row, col, value, isInitial};
                 currentRow.push(tile);
             }
             grid.push(currentRow);
@@ -54,7 +50,15 @@ export default class Board extends Component {
         console.log("click")
     }
 
-    getBacktrackArray(grid){
+    handleChange(row, col){
+        const newGrid = this.state.grid.slice()
+        const newValue = document.getElementById(`${row},${col}`).value
+        newGrid[row][col].value = parseInt(newValue)
+        this.setState({grid : newGrid})
+    }
+
+    getValueArray(grid){
+        //get an array of values from the grid array
         let newGrid = [];
         for (const row of grid){
             let currentRow = [];
@@ -69,7 +73,7 @@ export default class Board extends Component {
 
     visualizeBacktrack(){
         let gridDisplay = this.state.grid.slice()
-        let gridBacktrack = this.getBacktrackArray(gridDisplay)
+        let gridBacktrack = this.getValueArray(gridDisplay)
         let history = [];
         
         backtrack(gridBacktrack, history)
@@ -98,16 +102,15 @@ export default class Board extends Component {
     }
 
     renderTile(tile){
-        const {row, col, value, isBorderRow, isBorderCol, isInitial} = tile;
+        const {row, col, value, isInitial} = tile;
         return <Tile
                     key={`${row},${col}`}
                     row={row}
                     col={col}
-                    value={value}
-                    isBorderRow={isBorderRow}
-                    isBorderCol={isBorderCol}
+                    number={value}
                     isInitial={isInitial}
                     onClick={() => this.handleClick()}
+                    onChange={() => this.handleChange(row, col)}
                 />;
     }
 
