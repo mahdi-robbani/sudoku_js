@@ -1,4 +1,4 @@
-function checkConflictRow(val, row, board){
+function isConflictRow(val, row, board){
     //checks column for conflicts, returns true if conflict
 
     for(let col = 0; col < board[row].length; col++){
@@ -9,7 +9,7 @@ function checkConflictRow(val, row, board){
     return false
 }
 
-function checkConflictCol(val, col, board){
+function isConflictCol(val, col, board){
     //checks column for conflicts, returns true if conflict
 
     for(let row = 0; row < board.length; row++){
@@ -20,7 +20,7 @@ function checkConflictCol(val, col, board){
     return false
 }
 
-function checkConflictBox(val, row, col, board){
+function isConflictBox(val, row, col, board){
     //checks box for conflicts, returns true if conflict
 
     const rowNumberStart = Math.floor(row/3) * 3;
@@ -38,11 +38,11 @@ function checkConflictBox(val, row, col, board){
     return false
 }
 
-function checkValid(val, row, col, board){
+export function isValid(val, row, col, board){
     //check if input is valid
-    if (!checkConflictRow(val, row, board) &&
-        !checkConflictCol(val, col, board) &&
-        !checkConflictBox(val, row, col, board)){
+    if (!isConflictRow(val, row, board) &&
+        !isConflictCol(val, col, board) &&
+        !isConflictBox(val, row, col, board)){
         return true
     } else{
         return false
@@ -78,7 +78,7 @@ export function backtrack(board, history){
             event[pos] = num
             history.push(event);
             //check if solution is valid
-            if (checkValid(num, row, col, board)){
+            if (isValid(num, row, col, board)){
                 board[row][col] = num
                 //run backtrack on next square and return true if it solves
                 if (backtrack(board, history)){

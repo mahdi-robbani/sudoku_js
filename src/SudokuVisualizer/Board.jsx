@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Tile from './Tile';
 import './Board.css';
-import {backtrack} from '../algorithms/backtrack';
+import {backtrack, isValid} from '../algorithms/backtrack';
 
 const INITIAL_BOARD = [[0, 0, 0, 2, 6, 0, 7, 0, 1],
                         [6, 8, 0, 0, 7, 0, 0, 9, 0],
@@ -20,6 +20,8 @@ export default class Board extends Component {
         this.numCols = 9;
         this.state = {
             grid: [],
+            inputStatus: '',
+            gameStatus: '',
         }
     }
 
@@ -48,13 +50,24 @@ export default class Board extends Component {
 
     handleClick() {
         console.log("click")
+        this.setState({inputStatus: ''})
     }
 
     handleChange(row, col){
         const newGrid = this.state.grid.slice()
-        const newValue = document.getElementById(`${row},${col}`).value
-        newGrid[row][col].value = parseInt(newValue)
-        this.setState({grid : newGrid})
+        let valueArray = this.getValueArray(newGrid)
+        let newValue = parseInt(document.getElementById(`${row},${col}`).value)
+        if (isValid(newValue, row, col, valueArray)) {
+            // if input is valid add it to state
+            console.log("valid")
+            newGrid[row][col].value = newValue
+            this.setState({grid : newGrid})
+        } else {
+            //reset value and warn user
+            document.getElementById(`${row},${col}`).value = null
+            this.setState({inputStatus: 'Invalid Move'})
+        }
+        console.log(this.state.grid)
     }
 
     getValueArray(grid){
@@ -138,6 +151,7 @@ export default class Board extends Component {
                 <div className="grid">
                     {board}
                 </div>
+                <div>{this.state.inputStatus}</div>
             </div>
 
         );
