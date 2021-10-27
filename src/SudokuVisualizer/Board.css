@@ -3,3 +3,11 @@
     content: "";
     display: table;
   }
+
+  .inputStatus {
+    color: red;
+  }
+  
+  .gameStaus {
+    color: green;
+  }

@@ -151,7 +151,8 @@ export default class Board extends Component {
                 <div className="grid">
                     {board}
                 </div>
-                <div>{this.state.inputStatus}</div>
+                <div class="inputStatus">{this.state.inputStatus}</div>
+                <div ckass="gameStatus">{this.state.gameStatus}</div>
             </div>
 
         );
